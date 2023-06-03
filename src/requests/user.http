@@ -5,7 +5,7 @@ GET {{baseURL}}
 Content-Type: :application/json
 
 ### GET USER BY ID
-GET {{baseURL}}/647bade813957564ec175153
+GET {{baseURL}}/647baf8573ce1aa4f63f1195
 Content-Type: application/json
 
 
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### UPDATE USER
-PUT  {{baseURL}}/647bade813957564ec175153
+PUT  {{baseURL}}/647baf8573ce1aa4f63f1195
 Content-Type: application/json
 
 {
@@ -29,5 +29,5 @@ Content-Type: application/json
 
 
 ### DELETE USER 
-DELETE {{baseURL}}/647bade813957564ec175153
+DELETE {{baseURL}}/647baf8573ce1aa4f63f1195
 Content-Type: application/json

@@ -6,9 +6,9 @@ import { v4 as uuid } from "uuid";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.mimetype.startsWith("video/")) {
-      cb(null, "public/videos");
+      cb(null, __dirname + "/.." + "/public/videos");
     } else {
-      cb(null, "public/images");
+      cb(null, __dirname + "/.." + "/public/images");
     }
   },
   filename: (req, file, cb) => {

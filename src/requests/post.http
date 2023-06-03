@@ -7,6 +7,23 @@ Content-Type: application/json
 
 ### CREATE POST 
 POST {{baseURL}}
-Content-Type: multipart/form-data
-Content-Disposition: form-data; name="image"; filename="test.png"
-Content-Type: image/png
+Accept: application/json
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="image" filename="1.png"
+Content-Type: application/octet-stream
+< .\my.png
+--MyBoundary
+Content-Dispostion: form-data; name="title"
+Hello
+--MyBoundary
+Content-Dispostion: form-data; name="description"
+Hello2
+--MyBoundary
+Content-Dispostion: form-data; name="title"
+647baf8573ce1aa4f63f1195
+--MyBoundary--
+
+
+
