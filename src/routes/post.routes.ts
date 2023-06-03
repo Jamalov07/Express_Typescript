@@ -2,7 +2,7 @@ import { Router } from "express";
 import PostController from "../controllers/post.controller";
 import upload from "../services/file.service";
 
-class UserRoute {
+class PostRoute {
   public path = "/post";
   public router = Router();
   public postController = new PostController();
@@ -29,4 +29,4 @@ class UserRoute {
   }
 }
 
-export default UserRoute;
+export default PostRoute;

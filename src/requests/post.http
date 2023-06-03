@@ -1,0 +1,12 @@
+@baseURL = http://localhost:3000/post
+
+### GET ALL POSTS
+GET {{baseURL}}
+Content-Type: application/json
+
+
+### CREATE POST 
+POST {{baseURL}}
+Content-Type: multipart/form-data
+Content-Disposition: form-data; name="image"; filename="test.png"
+Content-Type: image/png

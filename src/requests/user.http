@@ -1,0 +1,33 @@
+@baseURL = http://localhost:3000/user
+
+### GET ALL USERS
+GET {{baseURL}}
+Content-Type: :application/json
+
+### GET USER BY ID
+GET {{baseURL}}/647bade813957564ec175153
+Content-Type: application/json
+
+
+### CREATE USER
+POST {{baseURL}}
+Content-Type: application/json
+
+{
+    "fullname":"jamalov n",
+    "username":"jamalov",
+    "password":"jamalov"
+}
+
+### UPDATE USER
+PUT  {{baseURL}}/647bade813957564ec175153
+Content-Type: application/json
+
+{
+    "fullname":"jamalov"
+}
+
+
+### DELETE USER 
+DELETE {{baseURL}}/647bade813957564ec175153
+Content-Type: application/json

@@ -16,7 +16,7 @@ class UserRoute {
     this.router.get(`${this.path}/:id`, this.userController.GET_ONE);
     this.router.post(`${this.path}`, this.userController.CREATE);
     this.router.put(`${this.path}/:id`, this.userController.UPDATE);
-    this.router.get(`${this.path}/:id`, this.userController.DELETE);
+    this.router.delete(`${this.path}/:id`, this.userController.DELETE);
   }
 }
 

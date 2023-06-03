@@ -62,7 +62,7 @@ class UserService {
       const candidate = await this.users.findOne({
         username: userBody.username,
       });
-      if (user && user.id !== id) {
+      if (candidate && candidate.id !== id) {
         throw new HttpException(400, "This username already exists");
       }
     }
@@ -82,7 +82,7 @@ class UserService {
         new: true,
       }
     );
-    return updatedUser;
+    return await this.getUserById(id);
   }
 
   public async deleteUser(id: string) {
