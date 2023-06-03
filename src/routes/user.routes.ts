@@ -15,6 +15,7 @@ class UserRoute {
     this.router.get(`${this.path}`, this.userController.PAGINATION);
     this.router.get(`${this.path}/:id`, this.userController.GET_ONE);
     this.router.post(`${this.path}`, this.userController.CREATE);
+    this.router.post(`${this.path}/signin`, this.userController.SIGNIN);
     this.router.put(`${this.path}/:id`, this.userController.UPDATE);
     this.router.delete(`${this.path}/:id`, this.userController.DELETE);
   }

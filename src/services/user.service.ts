@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-import { CreateUserDto, UpdateUserDto } from "../dtos/user.dto";
+import { CreateUserDto, SignInDto, UpdateUserDto } from "../dtos/user.dto";
 import { HttpException } from "../exceptions/HttpException";
 import userModel from "../models/user.model";
-import { hash } from "bcrypt";
+import { hash, compare } from "bcrypt";
+import jwt from "jsonwebtoken";
 
 class UserService {
   public users = userModel;
@@ -89,6 +90,26 @@ class UserService {
     const user = await this.getUserById(id);
     await this.users.deleteOne({ _id: id });
     return { message: "user deleted" };
+  }
+
+  public async login(authBody: SignInDto) {
+    const user = await this.users.findOne({ username: authBody.username });
+    if (!user) {
+      throw new HttpException(401, "User not authorized");
+    }
+    const comparePassword = compare(authBody.password, user.password);
+    if (!comparePassword) {
+      throw new HttpException(401, "Wrong password");
+    }
+
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.SECRET_KEY || "SECRET_KEY",
+      {
+        expiresIn: "2 days",
+      }
+    );
+    return { user, token };
   }
 }
 

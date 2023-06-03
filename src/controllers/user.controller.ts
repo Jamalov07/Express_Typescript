@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import UserService from "../services/user.service";
-import { CreateUserDto, UpdateUserDto } from "../dtos/user.dto";
+import { CreateUserDto, SignInDto, UpdateUserDto } from "../dtos/user.dto";
 
 class UserController {
   public userService = new UserService();
@@ -59,6 +59,15 @@ class UserController {
     try {
       const id = req.params.id;
       res.json(await this.userService.deleteUser(id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  public SIGNIN = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const authBody: SignInDto = req.body;
+      res.json(await this.userService.login(authBody));
     } catch (error) {
       console.log(error);
     }

@@ -19,6 +19,15 @@ Content-Type: application/json
     "password":"jamalov"
 }
 
+### CREATE USER
+POST {{baseURL}}/signin
+Content-Type: application/json
+
+{
+    "username":"jamalov",
+    "password":"jamalov"
+}
+
 ### UPDATE USER
 PUT  {{baseURL}}/647baf8573ce1aa4f63f1195
 Content-Type: application/json
