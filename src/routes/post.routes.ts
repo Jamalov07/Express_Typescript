@@ -25,7 +25,7 @@ class PostRoute {
       upload.single("image"),
       this.postController.UPDATE
     );
-    this.router.get(`${this.path}/:id`, this.postController.DELETE);
+    this.router.delete(`${this.path}/:id`, this.postController.DELETE);
   }
 }
 

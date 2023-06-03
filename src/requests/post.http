@@ -5,25 +5,58 @@ GET {{baseURL}}
 Content-Type: application/json
 
 
+### GET POST BY ID
+GET {{baseURL}}/647bc024a95dd3099f7bf953
+Content-Type: application/json
+
+
 ### CREATE POST 
 POST {{baseURL}}
-Accept: application/json
-Content-Type: multipart/form-data; boundary=MyBoundary
+Content-Type: multipart/form-data; boundary=boundary
 
---MyBoundary
-Content-Disposition: form-data; name="image" filename="1.png"
-Content-Type: application/octet-stream
-< .\my.png
---MyBoundary
-Content-Dispostion: form-data; name="title"
-Hello
---MyBoundary
-Content-Dispostion: form-data; name="description"
-Hello2
---MyBoundary
-Content-Dispostion: form-data; name="title"
+--boundary
+Content-Disposition: form-data; name="title"
+
+Example Title
+--boundary
+Content-Disposition: form-data; name="description"
+
+Example Description
+--boundary
+Content-Disposition: form-data; name="owner"
+
 647baf8573ce1aa4f63f1195
---MyBoundary--
+--boundary
+Content-Disposition: form-data; name="image"; filename="example.jpg"
+Content-Type: image/jpeg
+
+< ./node.jpg
+--boundary--
 
 
+### UPDATE POST BY ID
+PUT {{baseURL}}/647bc024a95dd3099f7bf953
+Content-Type: multipart/form-data; boundary=boundary
 
+--boundary
+Content-Disposition: form-data; name="title"
+
+Example Title2
+--boundary
+Content-Disposition: form-data; name="description"
+
+Example Description2
+--boundary
+Content-Disposition: form-data; name="owner"
+
+647baf8573ce1aa4f63f1195
+--boundary
+Content-Disposition: form-data; name="image"; filename="example.jpg"
+Content-Type: image/jpeg
+
+< ./node2.jpeg
+--boundary--
+
+
+### DELETE POST
+DELETE {{baseURL}}/647bc024a95dd3099f7bf953

@@ -89,8 +89,13 @@ class PostService {
 
   public async deletePost(id: string) {
     const post = await this.getPostById(id);
+
     if (post.image) {
-      fs.unlinkSync(`./public/images/${post.image}`);
+      try {
+        fs.unlinkSync(`./public/images/${post.image}`);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     await this.posts.deleteOne({ _id: id });
