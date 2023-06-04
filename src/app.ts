@@ -4,6 +4,9 @@ import { dbConnection } from "./database";
 import cors from "cors";
 import { Routes } from "./interfaces/routes.interface";
 import errorMiddleware from "./middlewares/error.middleware";
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import YAML from "yamljs";
 
 class App {
   public app: express.Application;
@@ -15,6 +18,7 @@ class App {
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
     this.initializeErrorHandling();
+    this.initialSwagger();
   }
 
   public listen() {
@@ -44,6 +48,17 @@ class App {
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
+  }
+
+  private initialSwagger() {
+    const file = fs.readFileSync(__dirname + "/../swagger.yaml", "utf8");
+    const swaggerDocument = YAML.parse(file);
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    );
+    console.log("Swagger connected!");
   }
 }
 

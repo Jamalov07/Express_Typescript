@@ -31,8 +31,9 @@ class UserService {
   }
 
   public async createUser(userBody: CreateUserDto) {
+    console.log(userBody);
     const candidate = await this.users.findOne({ username: userBody.username });
-    if (candidate) {
+    if (candidate!==null) {
       throw new HttpException(400, "this username already exists");
     }
 
