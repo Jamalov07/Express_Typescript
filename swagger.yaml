@@ -39,10 +39,62 @@ paths:
                   type: string
                 password:
                   type: string
-    responses:
-      '201':
-        description: Created User.
+      responses:
+        '201':
+          description: Created User.
+          content:
+            application/json:
+              schema:
+                type: object
+  /user/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+      responses:
+        '200':
+          description: User with  this id
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      parameters:
+        - in: path
+          name: id
+          required: true
+      requestBody:
+        description: Optional.
+        required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                fullname:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: updated user.
+          content:
+            application/json:
+              schema:
+                type: object
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          required: true
+      responses:
+        '200':
+          description: user deleted.
+            content:
+              application/json:
+                schema:
+                  type: object
