@@ -10,6 +10,8 @@ servers:
 paths:
   /user:
     get:
+      tags:
+        - user
       summary: Returns a list users.
       description: hi.
       responses:
@@ -22,6 +24,8 @@ paths:
                   items:
                     type: object
     post:
+      tags:
+        - user
       summary: Create a new user.
       description: hi.
 
@@ -48,6 +52,9 @@ paths:
                 type: object
   /user/{id}:
     get:
+      tags:
+        - user
+      summary: Returns a one user.
       parameters:
         - in: path
           name: id
@@ -60,6 +67,8 @@ paths:
               schema:
                 type: object
     put:
+      tags:
+        - user
       parameters:
         - in: path
           name: id
@@ -87,6 +96,8 @@ paths:
                 type: object
 
     delete:
+      tags:
+        - user
       parameters:
         - in: path
           name: id
@@ -100,6 +111,8 @@ paths:
                   type: object
   /user/signin:
     post:
+      tags:
+        - user
       requestBody:
           description: Optional.
           required: true
@@ -119,3 +132,108 @@ paths:
             application/json:
               schema:
                 type: object
+  /post:
+    get:
+      tags:
+        - post
+      summary: Returns a list posts.
+      description: hi.
+      responses:
+        '200':
+          description: A JSON array of users.
+          content: 
+            application/json:
+              schema:
+                type: array
+                  items:
+                    type: object
+    post:
+      tags:
+        - post
+      summary: Create a new post.
+      description: hi.
+
+      requestBody:
+        description: Optional.
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                owner:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Created post.
+          content:
+            application/json:
+              schema:
+                type: object
+  /post/{id}:
+    get:
+      tags:
+        - post
+      parameters:
+        - in: path
+          name: id
+          required: true
+      responses:
+        '200':
+          description: Post with  this id
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      tags:
+        - post
+      parameters:
+        - in: path
+          name: id
+          required: true
+      requestBody:
+        description: Optional.
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                owner:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: updated post.
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      tags:
+        - post
+      parameters:
+        - in: path
+          name: id
+          required: true
+      responses:
+        '200':
+          description: user deleted.
+            content:
+              application/json:
+                schema:
+                  type: object

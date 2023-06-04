@@ -76,8 +76,8 @@ class PostService {
     const updatedPost = await this.posts.updateOne(
       { _id: id },
       {
-        title: postBody.title,
-        description: postBody.description,
+        title: postBody.title || post.title,
+        description: postBody.description || post.description,
         image: image,
       },
       {
