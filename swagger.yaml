@@ -98,3 +98,24 @@ paths:
               application/json:
                 schema:
                   type: object
+  /user/signin:
+    post:
+      requestBody:
+          description: Optional.
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+      responses:
+        '200':
+          description: sign in user.
+          content:
+            application/json:
+              schema:
+                type: object
