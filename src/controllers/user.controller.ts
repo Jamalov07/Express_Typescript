@@ -72,6 +72,14 @@ class UserController {
       console.log(error);
     }
   };
+
+  public TOCSV = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.send(await this.userService.getUsersInFormatCSV(res, req));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export default UserController;

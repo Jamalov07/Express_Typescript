@@ -4,6 +4,10 @@ import { HttpException } from "../exceptions/HttpException";
 import userModel from "../models/user.model";
 import { hash, compare } from "bcrypt";
 import jwt from "jsonwebtoken";
+import { parse } from "json2csv";
+import * as fs from "fs";
+import { Request, Response } from "express";
+import * as path from "path";
 
 class UserService {
   public users = userModel;
@@ -33,7 +37,7 @@ class UserService {
   public async createUser(userBody: CreateUserDto) {
     console.log(userBody);
     const candidate = await this.users.findOne({ username: userBody.username });
-    if (candidate!==null) {
+    if (candidate !== null) {
       throw new HttpException(400, "this username already exists");
     }
 
@@ -111,6 +115,26 @@ class UserService {
       }
     );
     return { user, token };
+  }
+
+  public async getUsersInFormatCSV(res: Response, req: Request) {
+    const fields = ["fullname", "username"];
+    const opts = { fields };
+    const users = await this.users.find(
+      {},
+      { _id: 0, password: 0, __v: 0, createdAt: 0, updatedAt: 0 }
+    );
+
+    let csv = parse(users, opts);
+    fs.writeFile(
+      __dirname + "/../../files/" + "users.csv",
+      csv,
+      function (err) {
+        if (err) throw err;
+        console.log("writed successfully");
+      }
+    );
+    return "ok";
   }
 }
 

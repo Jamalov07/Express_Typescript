@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { connect } from "mongoose";
 import { dbConnection } from "./database";
 import cors from "cors";
@@ -38,6 +38,8 @@ class App {
   private initializeMiddlewares() {
     this.app.use(cors());
     this.app.use(express.json());
+    console.log(__dirname);
+    this.app.use(express.static(__dirname + "/.." + "/files"));
   }
 
   private initializeRoutes(routes: Routes[]) {
