@@ -12,6 +12,8 @@ class UserRoute {
 
   public initializeRoutes() {
     this.router.get(`${this.path}/csv`, this.userController.TOCSV);
+    this.router.get(`${this.path}/csv2`, this.userController.TOANOTHERCSV);
+    this.router.get(`${this.path}/excel`, this.userController.TOEXCEL);
     this.router.get(`${this.path}/all`, this.userController.GET);
     this.router.get(`${this.path}`, this.userController.PAGINATION);
     this.router.get(`${this.path}/:id`, this.userController.GET_ONE);

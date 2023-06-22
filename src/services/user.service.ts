@@ -8,6 +8,8 @@ import { parse } from "json2csv";
 import * as fs from "fs";
 import { Request, Response } from "express";
 import * as path from "path";
+import * as ExcelJS from "exceljs";
+import ObjectsToCsv from "objects-to-csv";
 
 class UserService {
   public users = userModel;
@@ -134,7 +136,71 @@ class UserService {
         console.log("writed successfully");
       }
     );
-    return "ok";
+    return "/users.csv";
+  }
+
+  public async getUsersInFormatExcel(res: Response, req: Request) {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet("Users");
+
+    // Fetch users from the database
+    const users = await this.users.find(
+      {},
+      { _id: 0, password: 0, __v: 0, createdAt: 0, updatedAt: 0 }
+    );
+
+    // Define the columns
+    sheet.columns = [
+      { header: "Full Name", key: "fullname" },
+      { header: "Username", key: "username" },
+      // Add more columns as needed
+    ];
+
+    // Add data to the worksheet
+    users.forEach((user) => {
+      sheet.addRow({ fullname: user.fullname, username: user.username });
+    });
+
+    // Generate a buffer for writing the workbook data
+    const buffer = await workbook.xlsx.writeBuffer();
+
+    // Set the response headers for downloading the file
+    res.setHeader("Content-Disposition", 'attachment; filename="users.xlsx"');
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+
+    // Write the buffer to the response object
+    res.write(buffer);
+    res.end();
+  }
+
+  public async getUsersFormatCSV(req: Request, res: Response) {
+    const users = await this.users.find(
+      {},
+      { _id: 0, password: 0, __v: 0, createdAt: 0, updatedAt: 0 }
+    );
+
+    // Convert users data to an array of objects
+    const usersData = users.map((user) => ({
+      fullname: user.fullname,
+      username: user.username,
+      // Add more fields as needed
+    }));
+
+    // Create a new instance of ObjectsToCsv
+    const csv = new ObjectsToCsv(usersData);
+
+    // Generate the CSV data
+    const csvData = await csv.toString();
+
+    // Set the response headers for downloading the file
+    res.setHeader("Content-Disposition", 'attachment; filename="users.csv"');
+    res.setHeader("Content-Type", "text/csv");
+
+    // Write the CSV data to the response
+    res.send(csvData);
   }
 }
 

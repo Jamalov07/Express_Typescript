@@ -75,7 +75,23 @@ class UserController {
 
   public TOCSV = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.send(await this.userService.getUsersInFormatCSV(res, req));
+      res.redirect(await this.userService.getUsersInFormatCSV(res, req));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  public TOEXCEL = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.json(await this.userService.getUsersInFormatExcel(res, req));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  public TOANOTHERCSV = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.json(await this.userService.getUsersFormatCSV(req, res));
     } catch (error) {
       console.log(error);
     }
